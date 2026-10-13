@@ -1,0 +1,277 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Design tokens. Brand colors live here and only here, so AutoVitals can swap
+   its palette later without touching components. Dark is the default theme;
+   light applies via the OS preference or the in-app toggle (data-theme).
+   --------------------------------------------------------------------------- */
+:root {
+  color-scheme: dark;
+
+  /* Brand */
+  --brand: #38bdf8; /* AutoVitals accent (sky) */
+  --brand-2: #818cf8; /* secondary accent (indigo) for gradients */
+  --brand-3: #34d399; /* tertiary accent (mint) for the mesh glow */
+  --brand-ink: #06111f; /* text on brand */
+
+  /* Surfaces */
+  --bg: #07090f;
+  --bg-elev: #0c111b;
+  --surface: rgba(255, 255, 255, 0.035);
+  --surface-2: rgba(255, 255, 255, 0.06);
+  --surface-solid: #111827;
+  --overlay: rgba(2, 4, 10, 0.72);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  /* Ink */
+  --text: #f4f6fb;
+  --text-2: #a3abbd;
+  --text-3: #6b7387;
+
+  /* Semantic status (validated for dark surface) */
+  --good: #34d399;
+  --good-soft: rgba(52, 211, 153, 0.14);
+  --watch: #fbbf24;
+  --watch-soft: rgba(251, 191, 36, 0.14);
+  --bad: #fb7185;
+  --bad-soft: rgba(251, 113, 133, 0.14);
+  --info: #60a5fa;
+  --info-soft: rgba(96, 165, 250, 0.14);
+
+  /* Chart series (fixed order; dark-stepped) */
+  --series-1: #3987e5; /* spend */
+  --series-2: #d95926; /* revenue */
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
+  --series-6: #9085e9;
+  --grid: rgba(255, 255, 255, 0.07);
+  --axis: #6b7387;
+
+  --radius: 18px;
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 20px 50px -24px rgba(0, 0, 0, 0.7);
+  --shadow-lift: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 30px 70px -20px rgba(0, 0, 0, 0.8);
+  --glow: 0 0 0 1px var(--border-strong), 0 0 60px -10px color-mix(in oklab, var(--brand) 40%, transparent);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --brand: #0284c7;
+  --brand-2: #4f46e5;
+  --brand-3: #059669;
+  --brand-ink: #ffffff;
+  --bg: #f5f7fb;
+  --bg-elev: #ffffff;
+  --surface: rgba(255, 255, 255, 0.72);
+  --surface-2: rgba(255, 255, 255, 0.95);
+  --surface-solid: #ffffff;
+  --overlay: rgba(15, 23, 42, 0.45);
+  --border: rgba(15, 23, 42, 0.08);
+  --border-strong: rgba(15, 23, 42, 0.16);
+  --text: #0b1220;
+  --text-2: #4b5567;
+  --text-3: #7c8597;
+  --good: #047857;
+  --good-soft: rgba(4, 120, 87, 0.1);
+  --watch: #b45309;
+  --watch-soft: rgba(180, 83, 9, 0.1);
+  --bad: #be123c;
+  --bad-soft: rgba(190, 18, 60, 0.1);
+  --info: #1d4ed8;
+  --info-soft: rgba(29, 78, 216, 0.1);
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  --series-6: #4a3aa7;
+  --grid: rgba(15, 23, 42, 0.07);
+  --axis: #7c8597;
+  --shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 16px 40px -24px rgba(15, 23, 42, 0.25);
+  --shadow-lift: 0 2px 4px rgba(15, 23, 42, 0.06), 0 30px 60px -24px rgba(15, 23, 42, 0.35);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]):not([data-theme="light"]) {
+    color-scheme: light;
+    --brand: #0284c7;
+    --brand-2: #4f46e5;
+    --brand-3: #059669;
+    --brand-ink: #ffffff;
+    --bg: #f5f7fb;
+    --bg-elev: #ffffff;
+    --surface: rgba(255, 255, 255, 0.72);
+    --surface-2: rgba(255, 255, 255, 0.95);
+    --surface-solid: #ffffff;
+    --overlay: rgba(15, 23, 42, 0.45);
+    --border: rgba(15, 23, 42, 0.08);
+    --border-strong: rgba(15, 23, 42, 0.16);
+    --text: #0b1220;
+    --text-2: #4b5567;
+    --text-3: #7c8597;
+    --good: #047857;
+    --good-soft: rgba(4, 120, 87, 0.1);
+    --watch: #b45309;
+    --watch-soft: rgba(180, 83, 9, 0.1);
+    --bad: #be123c;
+    --bad-soft: rgba(190, 18, 60, 0.1);
+    --info: #1d4ed8;
+    --info-soft: rgba(29, 78, 216, 0.1);
+    --series-1: #2a78d6;
+    --series-2: #eb6834;
+    --series-3: #1baf7a;
+    --series-4: #eda100;
+    --series-5: #e87ba4;
+    --series-6: #4a3aa7;
+    --grid: rgba(15, 23, 42, 0.07);
+    --axis: #7c8597;
+    --shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 16px 40px -24px rgba(15, 23, 42, 0.25);
+    --shadow-lift: 0 2px 4px rgba(15, 23, 42, 0.06), 0 30px 60px -24px rgba(15, 23, 42, 0.35);
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elev: var(--bg-elev);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-solid: var(--surface-solid);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ink: var(--text);
+  --color-ink-2: var(--text-2);
+  --color-ink-3: var(--text-3);
+  --color-brand: var(--brand);
+  --color-brand-2: var(--brand-2);
+  --color-brand-3: var(--brand-3);
+  --color-brand-ink: var(--brand-ink);
+  --color-good: var(--good);
+  --color-good-soft: var(--good-soft);
+  --color-watch: var(--watch);
+  --color-watch-soft: var(--watch-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  --radius-card: var(--radius);
+  --shadow-card: var(--shadow);
+  --shadow-lift: var(--shadow-lift);
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Ambient mesh background */
+.mesh {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 50% at 10% -10%, color-mix(in oklab, var(--brand) 22%, transparent), transparent 60%),
+    radial-gradient(50% 40% at 90% 0%, color-mix(in oklab, var(--brand-2) 20%, transparent), transparent 60%),
+    radial-gradient(40% 40% at 50% 110%, color-mix(in oklab, var(--brand-3) 14%, transparent), transparent 60%);
+}
+.mesh::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(70% 60% at 50% 0%, #000 20%, transparent 100%);
+  opacity: 0.6;
+}
+
+/* Glass card */
+.glass {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+.glass-solid {
+  background: var(--surface-solid);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lift);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.text-gradient {
+  background: linear-gradient(120deg, var(--text) 0%, var(--brand) 60%, var(--brand-2) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ring-focus:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* Shimmer for loading states */
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 50%, var(--surface) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+/* Subtle scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+/* Recharts tweaks */
+.recharts-cartesian-grid line { stroke: var(--grid); }
+.recharts-text { fill: var(--axis); font-family: var(--font-mono); font-size: 11px; }
+.recharts-tooltip-cursor { fill: var(--surface-2); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Print: only the memo, as a clean document.
+   --------------------------------------------------------------------------- */
+@media print {
+  :root { color-scheme: light; --bg: #fff; --text: #111; --text-2: #444; --text-3: #666; --border: #ddd; --surface: #fff; --surface-solid: #fff; }
+  body { background: #fff !important; color: #111 !important; }
+  .mesh, .no-print { display: none !important; }
+  body.printing-memo > :not(.print-root) { display: none !important; }
+  .print-root { position: static !important; inset: auto !important; overflow: visible !important; background: #fff !important; backdrop-filter: none !important; padding: 0 !important; }
+  .print-root .print-sheet { position: static !important; max-width: none !important; max-height: none !important; width: auto !important; height: auto !important; overflow: visible !important; box-shadow: none !important; border: 0 !important; border-radius: 0 !important; background: #fff !important; color: #111 !important; }
+  .print-root .glass, .print-root .glass-solid { background: #fff !important; border: 1px solid #ddd !important; box-shadow: none !important; backdrop-filter: none !important; }
+  .print-break-inside { break-inside: avoid; }
+  @page { margin: 18mm; }
+}
